@@ -11,7 +11,7 @@ export class Values {
     }
 
     getRandom(min, max) {
-        return(Math.random * (max - min) + min);
+        return(Math.floor(Math.random() * (max - min) + min));
     }
 
     pushValues() {
@@ -31,33 +31,42 @@ export class Values {
     getChartParameters(value) {
         let name = value;
         let selected_data;
+        let colors;
 
         switch(value) {
             case 'temperatures':
                 selected_data = this.temperatures;
+                colors = ['#cc0000'];
                 break;
             case 'heart_rate':
                 selected_data = this.heart_rate;
+                colors = ['#ffcc00'];
                 break;
             case 'breath':
                 selected_data = this.breath;
+                colors = ['#009933'];
                 break;
             case 'oxygen':
                 selected_data = this.oxygen;
+                colors = ['#0000cc'];
                 break;
             case 'position':
                 selected_data = this.position;
+                colors = ['#996633'];
                 break;
+            default:
+                throw(new Error("Requested Chart Parameters doesnt correspond to any value type !"));
         }
 
         return {
             chartOptions: {
                 chart: {
-                    id: name + 'chart',
+                    id: name.toUpperCase(),
                 },
                 xaxis: {
-                    type: 'datetime',
+                    type : "timeline"
                 },
+                colors: colors
             },
             series: [{
                 name: name + 'series',

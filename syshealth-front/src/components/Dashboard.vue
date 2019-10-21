@@ -1,6 +1,20 @@
 <template>
   <div class="dashboard-container">
-    <chart :parameters="parameters"></chart>
+    <div class="box">
+      <chart :parameters="parameters.getChartParameters('temperatures')" type="bar"></chart>
+    </div>
+    <div class="box">
+      <chart :parameters="parameters.getChartParameters('heart_rate')" type="line"></chart>
+    </div>
+    <div class="box">
+      <chart :parameters="parameters.getChartParameters('breath')" type="area"></chart>
+    </div>
+    <div class="box">
+      <chart :parameters="parameters.getChartParameters('oxygen')" type="heatmap"></chart>
+    </div>
+    <div class="box">
+      <chart :parameters="parameters.getChartParameters('position')" type="line"></chart>
+    </div>
   </div>
 </template>
 
@@ -8,19 +22,16 @@
   import Chart from "./Chart";
   import { Values } from "../models/values";
 
-  let values;
+  let values = new Values();
 
   export default {
     name: 'Dashboard',
     components: {
       Chart
     },
-    beforeCreate() {
-      values = new Values()
-    },
     data() {
       return {
-        parameters : values.getChartParameters("temperatures")
+        parameters : values
       }
     }
   }
@@ -40,5 +51,13 @@
   }
   a {
     color: #42b983;
+  }
+  .dashboard-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .box {
+    width: 50%;
   }
 </style>

@@ -1,6 +1,7 @@
 <template>
-    <div class="app">
-        <apexcharts width="500" type="type" :options="parameters.chartOptions" :series="parameters.series"></apexcharts>
+    <div class="chart">
+        <h3>{{ parameters.chartOptions.chart.id }}</h3>
+        <apexcharts width="500" :type="type" :options="parameters.chartOptions" :series="parameters.series"></apexcharts>
     </div>
 </template>
 
@@ -11,9 +12,6 @@
         props: ['parameters', 'type'],
         components: {
             apexcharts: VueApexCharts,
-        },
-        methods: {
-
         }
     }
 </script>
