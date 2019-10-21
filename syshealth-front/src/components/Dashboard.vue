@@ -1,20 +1,27 @@
 <template>
-  <div class="hello">
-    coucou Etienne
-    <chart></chart>
+  <div class="dashboard-container">
+    <chart :parameters="parameters"></chart>
   </div>
 </template>
 
 <script>
   import Chart from "./Chart";
+  import { Values } from "../models/values";
+
+  let values;
 
   export default {
     name: 'Dashboard',
-    props: {
-      msg: String
-    },
     components: {
       Chart
+    },
+    beforeCreate() {
+      values = new Values()
+    },
+    data() {
+      return {
+        parameters : values.getChartParameters("temperatures")
+      }
     }
   }
 </script>

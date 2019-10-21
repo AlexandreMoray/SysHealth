@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <Dashboard msg="Welcome to Your Dashboard"/>
+    <Dashboard />
   </div>
 </template>
 
