@@ -27,9 +27,12 @@ export default {
     -moz-osx-font-smoothing: grayscale;
   }
   .app {
-    width: 100vw;
+    width: auto;
     text-align: center;
     color: #2c3e50;
-    margin-top: 60px;
+    padding: 60px 10vw 0 10vw;
+    background-image: url("./assets/red-cross-little.jpg");
+    background-size: 50px;
+
   }
 </style>

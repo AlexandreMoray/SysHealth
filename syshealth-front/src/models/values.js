@@ -8,6 +8,7 @@ export class Values {
 
     constructor() {
         this.initValues();
+        this.subscribeValues();
     }
 
     getRandom(min, max) {
@@ -28,6 +29,10 @@ export class Values {
         }
     }
 
+    subscribeValues() {
+        setInterval( () => { this.pushValues() }, 2000);
+    }
+
     getChartParameters(value) {
         let name = value;
         let selected_data;
@@ -35,23 +40,23 @@ export class Values {
 
         switch(value) {
             case 'temperatures':
-                selected_data = this.temperatures;
+                selected_data = this.temperatures.slice(-10);
                 colors = ['#cc0000'];
                 break;
             case 'heart_rate':
-                selected_data = this.heart_rate;
+                selected_data = this.heart_rate.slice(-10);
                 colors = ['#ffcc00'];
                 break;
             case 'breath':
-                selected_data = this.breath;
+                selected_data = this.breath.slice(-10);
                 colors = ['#009933'];
                 break;
             case 'oxygen':
-                selected_data = this.oxygen;
+                selected_data = this.oxygen.slice(-10);
                 colors = ['#0000cc'];
                 break;
             case 'position':
-                selected_data = this.position;
+                selected_data = this.position.slice(-10);
                 colors = ['#996633'];
                 break;
             default:
@@ -69,7 +74,7 @@ export class Values {
                 colors: colors
             },
             series: [{
-                name: name + 'series',
+                name: name + '_series',
                 data: selected_data
             }]
         }
