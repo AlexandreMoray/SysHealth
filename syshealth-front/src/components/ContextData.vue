@@ -13,23 +13,40 @@
                 <div>{{temperature}}</div>
             </div>
             <div class="box">
-                <h3>Qualité de l'air: </h3>
-                <div>{{airQuality}}</div>
+                <h3>Humidité: </h3>
+                <div>{{humidity}}</div>
+            </div>
+            <div class="box">
+                <h3>Pression: </h3>
+                <div>{{pressure}}</div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import {MeteoContext} from "../models/meteoContext";
+
     export default {
         name: "ContextData",
+        mounted() {
+            let context = new MeteoContext()
+            context.getContext().then(
+                x => {
+                    this.temperature = Math.round((x.temp - 273.15)*100)/100 + ' °C'
+                    this.humidity = x.humidity + ' %'
+                    this.pressure = x.pressure + ' hPa'
+                }
+            )
+        },
         data () {
             return {
-                temperature: 20,
-                airQuality: 0.8,
+                temperature: '-',
+                pressure: '-',
+                humidity: '-',
                 city: 'Lyon'
             }
-        }
+        },
     }
 </script>
 
@@ -52,6 +69,7 @@
         justify-content: center;
         align-items: center;
         flex-direction: row;
+        flex-wrap: wrap;
     }
     .box {
         border-radius: 10px;

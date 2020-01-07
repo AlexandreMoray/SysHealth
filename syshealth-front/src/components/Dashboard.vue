@@ -1,5 +1,6 @@
 <template>
   <div class="dashboard-container">
+    <Warning :values="parameters.getLastValues()"/>
     <ContextData/>
     <chart name="Températures" :parameters="parameters.getChartParameters('temperatures')" type="bar"></chart>
     <chart name="Rythme Cardiaque" :parameters="parameters.getChartParameters('heart_rate')" type="line"></chart>
@@ -13,12 +14,14 @@
   import Chart from "./Chart";
   import { Values } from "../models/values";
   import ContextData from "./ContextData";
+  import Warning from "./Warning";
 
   let values = new Values();
 
   export default {
     name: 'Dashboard',
     components: {
+      Warning,
       ContextData,
       Chart
     },

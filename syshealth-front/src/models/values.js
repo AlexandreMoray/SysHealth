@@ -16,8 +16,8 @@ export class Values {
     }
 
     pushValues() {
-        this.temperatures.push(this.getRandom(30,45));
-        this.heart_rate.push(this.getRandom(50,150));
+        this.temperatures.push(this.getRandom(36,39));
+        this.heart_rate.push(this.getRandom(35,120));
         this.breath.push(this.getRandom(1,10));
         this.oxygen.push(this.getRandom(10,100));
         this.position.push(this.getRandom(1,4));
@@ -31,6 +31,16 @@ export class Values {
 
     subscribeValues() {
         setInterval( () => { this.pushValues() }, 2000);
+    }
+
+    getLastValues() {
+        return {
+            'temperature' : this.temperatures[this.temperatures.length-1],
+            'heart_rate' : this.heart_rate[this.heart_rate.length-1],
+            'breath' : this.breath[this.breath.length-1],
+            'oxygen' : this.oxygen[this.oxygen.length-1],
+            'position' : this.position[this.position.length-1],
+        }
     }
 
     getChartParameters(value) {

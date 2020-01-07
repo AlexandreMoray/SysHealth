@@ -31,7 +31,6 @@ export default {
     text-align: center;
     color: #2c3e50;
     padding: 60px 10vw 0 10vw;
-    background-image: url("./assets/red-cross-little.jpg");
     background-size: 50px;
 
   }
