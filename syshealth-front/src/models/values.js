@@ -1,3 +1,4 @@
+import axios from "axios"
 
 export class Values {
     temperatures = new Array();
@@ -21,6 +22,15 @@ export class Values {
         this.breath.push(this.getRandom(1,10));
         this.oxygen.push(this.getRandom(10,100));
         this.position.push(this.getRandom(1,4));
+    }
+
+    getApiValues() {
+        return axios({ method: "GET", "url": "http://localhost:8000/user" })
+            .then(result => {
+                return result
+            }, error => {
+                console.error(error);
+            })
     }
 
     initValues() {
