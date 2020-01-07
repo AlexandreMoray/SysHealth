@@ -4,7 +4,7 @@ from .models import User,Doctor
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ('name', 'temperature', 'oxygen', 'heartRate', 'breath')
+        fields = ( 'temperature', 'oxygen', 'heartRate', 'breath')
 
 class DoctorSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

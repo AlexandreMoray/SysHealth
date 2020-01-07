@@ -8,7 +8,7 @@ from .models import User, Doctor
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all().order_by('name')
+    queryset = User.objects.all().order_by('id')
     serializer_class = UserSerializer
 class DoctorViewSet(viewsets.ModelViewSet):
     queryset = Doctor.objects.all().order_by('name')
