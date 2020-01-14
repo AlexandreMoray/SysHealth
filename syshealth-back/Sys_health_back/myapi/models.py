@@ -4,7 +4,7 @@ from django.db import models
 class User (models.Model):
 
     temperature = models.FloatField(max_length = 45)
-    oxygen = models.FloatField(max_length = 45)
+    position = models.FloatField(max_length = 45)
     heartRate = models.FloatField(max_length = 45)
     breath = models.FloatField(max_length = 45)
 
