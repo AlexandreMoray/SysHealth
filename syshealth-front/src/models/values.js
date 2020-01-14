@@ -41,7 +41,7 @@ export class Values {
     }
 
     pushApiValues() {
-        axios({ method: "GET", "url": "http://127.0.0.1:8000/user/"+(this.size++) })
+        axios({ method: "GET", "url": "http://127.0.0.1:8000/user/"+(this.size+1) })
             .then(result => {
                 console.log('next : ' + result);
                 let val = result.data
@@ -49,6 +49,7 @@ export class Values {
                 this.heart_rate.push(val[0].heartRate);
                 this.breath.push(val[0].breath);
                 this.position.push(val[0].position);
+                this.size++;
             }, error => {
                 console.error(error);
             })
