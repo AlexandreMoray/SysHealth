@@ -5,7 +5,6 @@
     <chart name="Températures" :parameters="parameters.getChartParameters('temperatures')" type="bar"></chart>
     <chart name="Rythme Cardiaque" :parameters="parameters.getChartParameters('heart_rate')" type="line"></chart>
     <chart name="Respiration" :parameters="parameters.getChartParameters('breath')" type="area"></chart>
-    <chart name="Niveau d'Oxygen" :parameters="parameters.getChartParameters('oxygen')" type="heatmap"></chart>
     <chart name="Position" :parameters="parameters.getChartParameters('position')" type="line"></chart>
   </div>
 </template>

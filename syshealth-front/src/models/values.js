@@ -1,6 +1,7 @@
 import axios from "axios"
 
 export class Values {
+    size = 0;
     temperatures = new Array();
     heart_rate = new Array();
     breath = new Array();
@@ -8,8 +9,23 @@ export class Values {
     position = new Array();
 
     constructor() {
-        this.initValues();
+        this.initApiValues();
         this.subscribeValues();
+    }
+
+    initApiValues() {
+        return axios({ method: "GET", "url": "http://127.0.0.1:8000/user" })
+            .then(result => {
+                console.log('init : ' + result);
+                result.data.forEach(x => {
+                    this.temperatures.push(x.temperature);
+                    this.heart_rate.push(x.heartRate);
+                    this.breath.push(x.breath);
+                    this.position.push(x.position);
+                })
+                this.size++;
+            })
+
     }
 
     getRandom(min, max) {
@@ -24,10 +40,15 @@ export class Values {
         this.position.push(this.getRandom(1,4));
     }
 
-    getApiValues() {
-        return axios({ method: "GET", "url": "http://localhost:8000/user" })
+    pushApiValues() {
+        axios({ method: "GET", "url": "http://127.0.0.1:8000/user/"+(this.size++) })
             .then(result => {
-                return result
+                console.log('next : ' + result);
+                let val = result.data
+                this.temperatures.push(val[0].temperature);
+                this.heart_rate.push(val[0].heartRate);
+                this.breath.push(val[0].breath);
+                this.position.push(val[0].position);
             }, error => {
                 console.error(error);
             })
@@ -40,7 +61,7 @@ export class Values {
     }
 
     subscribeValues() {
-        setInterval( () => { this.pushValues() }, 2000);
+        setInterval( () => { this.pushApiValues()}, 2000);
     }
 
     getLastValues() {
