@@ -32,6 +32,8 @@ export default {
     color: #2c3e50;
     padding: 60px 10vw 0 10vw;
     background-size: 50px;
+    background-image: url('assets/fond.jpg');
+    background-size: cover;
 
   }
 </style>

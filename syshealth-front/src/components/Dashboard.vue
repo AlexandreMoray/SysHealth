@@ -2,10 +2,16 @@
   <div class="dashboard-container">
     <Warning :values="parameters.getLastValues()"/>
     <ContextData/>
-    <chart name="Températures" :parameters="parameters.getChartParameters('temperatures')" type="bar"></chart>
-    <chart name="Rythme Cardiaque" :parameters="parameters.getChartParameters('heart_rate')" type="line"></chart>
-    <chart name="Respiration" :parameters="parameters.getChartParameters('breath')" type="area"></chart>
-    <chart name="Position" :parameters="parameters.getChartParameters('position')" type="line"></chart>
+    <chart name="Air quality" :parameters="parameters.getChartParameters('airQuality')" type="line"
+           v-if="extended==null" :v-on:extend="this.extendChart('airQuality')"></chart>
+    <chart name="Humidity" :parameters="parameters.getChartParameters('humidity')" type="area"
+           v-if="extended==null" ></chart>
+    <chart name="PmTen" :parameters="parameters.getChartParameters('pmTen')" type="line"
+           v-if="extended==null" ></chart>
+    <chart name="PmTwoFive" :parameters="parameters.getChartParameters('pmTwoFive')" type="line"
+           v-if="extended==null" ></chart>
+    <chart name="Temp" :parameters="parameters.getChartParameters('temp')" type="area"
+           v-if="extended==null" ></chart>
   </div>
 </template>
 
@@ -26,7 +32,21 @@
     },
     data() {
       return {
-        parameters : values
+        parameters : values,
+        loaded: false,
+        extended : null,
+      }
+    },
+    computed: {
+      timeLoad() {
+        setTimeout( () => {this.loaded=true}, 2000);
+      }
+    },
+    methods: {
+      extendChart() {
+        if(this.loaded) {
+          this.extended = 'airQuality';
+        }
       }
     }
   }

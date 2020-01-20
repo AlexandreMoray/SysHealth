@@ -44,7 +44,7 @@
                 temperature: '-',
                 pressure: '-',
                 humidity: '-',
-                city: 'Lyon'
+                city: 'Sceaux'
             }
         },
     }
