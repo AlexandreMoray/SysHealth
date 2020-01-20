@@ -36,18 +36,6 @@
         loaded: false,
         extended : null,
       }
-    },
-    computed: {
-      timeLoad() {
-        setTimeout( () => {this.loaded=true}, 2000);
-      }
-    },
-    methods: {
-      extendChart() {
-        if(this.loaded) {
-          this.extended = 'airQuality';
-        }
-      }
     }
   }
 </script>

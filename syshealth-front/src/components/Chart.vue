@@ -2,7 +2,7 @@
     <div class="chart">
         <div class="header">
             <h3>{{name}}</h3>
-            <div class="more" v-on:click="extend()">+</div>
+            <div class="more">+</div>
         </div>
         <apexcharts width="500" :type="type" :options="parameters.chartOptions" :series="parameters.series"></apexcharts>
     </div>
@@ -14,11 +14,6 @@
         props: ['parameters', 'type', 'name'],
         components: {
             apexcharts: VueApexCharts,
-        },
-        methods: {
-            extend() {
-                this.$emit('extend', this.name);
-            }
         }
     }
 </script>
