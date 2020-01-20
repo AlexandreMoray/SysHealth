@@ -3,7 +3,7 @@
     <Warning :values="parameters.getLastValues()"/>
     <ContextData/>
     <chart name="Air quality" :parameters="parameters.getChartParameters('airQuality')" type="line"
-           v-if="extended==null" :v-on:extend="this.extendChart('airQuality')"></chart>
+           v-if="extended==null"></chart>
     <chart name="Humidity" :parameters="parameters.getChartParameters('humidity')" type="area"
            v-if="extended==null" ></chart>
     <chart name="PmTen" :parameters="parameters.getChartParameters('pmTen')" type="line"
