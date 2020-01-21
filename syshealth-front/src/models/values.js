@@ -1,12 +1,11 @@
 import axios from "axios"
 
 export class Values {
-    size = 0;
-    temperatures = new Array();
-    heart_rate = new Array();
-    breath = new Array();
-    oxygen = new Array();
-    position = new Array();
+    airQuality = new Array();
+    humidity = new Array();
+    pmTen = new Array();
+    pmTwoFive = new Array();
+    temp = new Array();
 
     constructor() {
         this.initApiValues();
@@ -14,64 +13,102 @@ export class Values {
     }
 
     initApiValues() {
-        return axios({ method: "GET", "url": "http://127.0.0.1:8000/user" })
+        axios({ method: "GET", "url": "https://io.adafruit.com/api/v2/StephaneThurneyssen/feeds/airquality/data" })
             .then(result => {
-                console.log('init : ' + result);
+                console.log('init air quality: ');
+                console.log(result);
                 result.data.forEach(x => {
-                    this.temperatures.push(x.temperature);
-                    this.heart_rate.push(x.heartRate);
-                    this.breath.push(x.breath);
-                    this.position.push(x.position);
+                    this.airQuality.unshift(x.value);
                 })
-                this.size++;
             })
-
+        axios({ method: "GET", "url": "https://io.adafruit.com/api/v2/StephaneThurneyssen/feeds/humidity/data" })
+            .then(result => {
+                console.log('init humidity: ');
+                console.log(result);
+                result.data.forEach(x => {
+                    this.humidity.unshift(Math.round(x.value*100)/100);
+                })
+            })
+        axios({ method: "GET", "url": "https://io.adafruit.com/api/v2/StephaneThurneyssen/feeds/pmten/data" })
+            .then(result => {
+                console.log('init pmTen: ');
+                console.log(result);
+                result.data.forEach(x => {
+                    this.pmTen.unshift(x.value);
+                })
+            })
+        axios({ method: "GET", "url": "https://io.adafruit.com/api/v2/StephaneThurneyssen/feeds/pmtwofive/data" })
+            .then(result => {
+                console.log('init pmTwoFive: ');
+                console.log(result);
+                result.data.forEach(x => {
+                    this.pmTwoFive.unshift(x.value);
+                })
+            })
+        axios({ method: "GET", "url": "https://io.adafruit.com/api/v2/StephaneThurneyssen/feeds/temp/data" })
+            .then(result => {
+                console.log('init temp: ');
+                console.log(result);
+                result.data.forEach(x => {
+                    this.temp.unshift(Math.round(x.value*100)/100);
+                })
+            })
     }
 
     getRandom(min, max) {
         return(Math.floor(Math.random() * (max - min) + min));
     }
 
-    pushValues() {
-        this.temperatures.push(this.getRandom(36,39));
-        this.heart_rate.push(this.getRandom(35,120));
-        this.breath.push(this.getRandom(1,10));
-        this.oxygen.push(this.getRandom(10,100));
-        this.position.push(this.getRandom(1,4));
-    }
-
     pushApiValues() {
-        axios({ method: "GET", "url": "http://127.0.0.1:8000/user/"+(this.size+1) })
+        axios({ method: "GET", "url": "https://io.adafruit.com/api/v2/StephaneThurneyssen/feeds/airquality/data/retain" })
             .then(result => {
-                console.log('next : ' + result);
-                let val = result.data
-                this.temperatures.push(val[0].temperature);
-                this.heart_rate.push(val[0].heartRate);
-                this.breath.push(val[0].breath);
-                this.position.push(val[0].position);
-                this.size++;
-            }, error => {
-                console.error(error);
+                let x = result.data.split(',')[0]
+                console.log('next airQuality: ');
+                console.log(x);
+                this.airQuality.push(x);
             })
-    }
+        axios({ method: "GET", "url": "https://io.adafruit.com/api/v2/StephaneThurneyssen/feeds/humidity/data/retain" })
+            .then(result => {
+                let x = result.data.split(',')[0]
+                console.log('next humidity: ');
+                console.log(x);
+                this.humidity.push((Math.round(x*100)/100));
+            })
+        axios({ method: "GET", "url": "https://io.adafruit.com/api/v2/StephaneThurneyssen/feeds/pmten/data/retain" })
+            .then(result => {
+                let x = result.data.split(',')[0]
+                console.log('next pmTen: ');
+                console.log(x);
+                this.pmTen.push(x);
+            })
+        axios({ method: "GET", "url": "https://io.adafruit.com/api/v2/StephaneThurneyssen/feeds/pmtwofive/data/retain" })
+            .then(result => {
+                let x = result.data.split(',')[0]
+                console.log('next pmTwoFive: ');
+                console.log(x);
+                this.pmTwoFive.push(x);
+            })
+        axios({ method: "GET", "url": "https://io.adafruit.com/api/v2/StephaneThurneyssen/feeds/temp/data/retain" })
+            .then(result => {
+                let x = result.data.split(',')[0]
+                console.log('next temp: ');
+                console.log(x);
+                this.temp.push((Math.round(x*100)/100));
+            })
 
-    initValues() {
-        for(let i=0; i<10; i++) {
-            this.pushValues()
-        }
     }
 
     subscribeValues() {
-        setInterval( () => { this.pushApiValues()}, 2000);
+        setInterval( () => { this.pushApiValues()}, 13000);
     }
 
     getLastValues() {
         return {
-            'temperature' : this.temperatures[this.temperatures.length-1],
-            'heart_rate' : this.heart_rate[this.heart_rate.length-1],
-            'breath' : this.breath[this.breath.length-1],
-            'oxygen' : this.oxygen[this.oxygen.length-1],
-            'position' : this.position[this.position.length-1],
+            'airQuality' : this.airQuality[this.airQuality.length-1],
+            'humidity' : this.humidity[this.humidity.length-1],
+            'pmTen' : this.pmTen[this.pmTen-1],
+            'pmTwoFive' : this.pmTwoFive[this.pmTwoFive.length-1],
+            'temp' : this.temp[this.temp.length-1],
         }
     }
 
@@ -81,24 +118,24 @@ export class Values {
         let colors;
 
         switch(value) {
-            case 'temperatures':
-                selected_data = this.temperatures.slice(-10);
+            case 'airQuality':
+                selected_data = this.airQuality.slice(-30);
                 colors = ['#cc0000'];
                 break;
-            case 'heart_rate':
-                selected_data = this.heart_rate.slice(-10);
+            case 'humidity':
+                selected_data = this.humidity.slice(-30);
                 colors = ['#ffcc00'];
                 break;
-            case 'breath':
-                selected_data = this.breath.slice(-10);
+            case 'pmTen':
+                selected_data = this.pmTen.slice(-30);
                 colors = ['#009933'];
                 break;
-            case 'oxygen':
-                selected_data = this.oxygen.slice(-10);
+            case 'pmTwoFive':
+                selected_data = this.pmTwoFive.slice(-30);
                 colors = ['#0000cc'];
                 break;
-            case 'position':
-                selected_data = this.position.slice(-10);
+            case 'temp':
+                selected_data = this.temp.slice(-30);
                 colors = ['#996633'];
                 break;
             default:
@@ -109,9 +146,25 @@ export class Values {
             chartOptions: {
                 chart: {
                     id: name.toUpperCase(),
+                    animations: {
+                        enabled: true,
+                        easing: 'linear',
+                        dynamicAnimation: {
+                            speed: 1000
+                        }
+                    }
                 },
                 xaxis: {
-                    type : "timeline"
+                    type : "timeline",
+                    axisBorder: {
+                        show: false
+                    },
+                    axisTicks: {
+                        show: false
+                    },
+                    labels: {
+                        show: false
+                    }
                 },
                 colors: colors
             },
@@ -122,4 +175,82 @@ export class Values {
         }
     }
 
+    getDetailedChartParameters(value) {
+        let name = value;
+        let selected_data;
+        let colors;
+
+        switch(value) {
+            case 'airQuality':
+                selected_data = this.airQuality;
+                colors = ['#cc0000'];
+                break;
+            case 'humidity':
+                selected_data = this.humidity;
+                colors = ['#ffcc00'];
+                break;
+            case 'pmTen':
+                selected_data = this.pmTen;
+                colors = ['#009933'];
+                break;
+            case 'pmTwoFive':
+                selected_data = this.pmTwoFive;
+                colors = ['#0000cc'];
+                break;
+            case 'temp':
+                selected_data = this.temp;
+                colors = ['#996633'];
+                break;
+            default:
+                throw(new Error("Requested Chart Parameters doesnt correspond to any value type !"));
+        }
+
+        return {
+            chartOptions: {
+                chart: {
+                    id: name.toUpperCase(),
+                    animations: {
+                        enabled: true,
+                        easing: 'linear',
+                        dynamicAnimation: {
+                            speed: 1000
+                        }
+                    },
+                    zoom: {
+                        enabled: true,
+                        type: 'x',
+                        autoScaleYaxis: false,
+                        zoomedArea: {
+                            fill: {
+                                color: '#90CAF9',
+                                opacity: 0.4
+                            },
+                            stroke: {
+                                color: '#0D47A1',
+                                opacity: 0.4,
+                                width: 1
+                            }
+                        }
+                    }
+                },
+                xaxis: {
+                    type : "timeline",
+                    axisBorder: {
+                        show: false
+                    },
+                    axisTicks: {
+                        show: false
+                    },
+                    labels: {
+                        show: false
+                    }
+                },
+                colors: colors
+            },
+            series: [{
+                name: name + '_series',
+                data: selected_data
+            }]
+        }
+    }
 }

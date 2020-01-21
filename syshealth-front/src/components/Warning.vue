@@ -12,14 +12,16 @@
         props: ['values'],
         methods: {
             isWarning() {
-                if(this.values.temperature > 38) {
-                    return "Temperature is high !"
-                } else if(this.values.temperature < 36) {
-                    return "Temperature is low !"
-                } else if(this.values.heart_rate > 110) {
-                    return "Heart rate is high !"
-                } else if(this.values.heart_rate < 50) {
-                    return "Heart rate is low !"
+                if(this.values.airQuality > 95) {
+                    return "Air Quality is quite dangerous (" + this.values.airQuality + ") !"
+                } else if(this.values.humidity > 80) {
+                    return "Humidity is really high (" + this.values.humidity + ") !"
+                } else if(this.values.humidity < 20) {
+                    return "Humidity is really low (" + this.values.humidity + ") !"
+                } else if(this.values.temp > 30) {
+                    return "Temperature is high (" + this.values.temperature + ") !"
+                } else if(this.values.temp < 5) {
+                    return "Temperature is low (" + this.values.temperature + ") !"
                 } else {
                     return 'ok'
                 }
@@ -37,8 +39,7 @@
         width: 100%;
         height: 60px;
         min-width: 500px;
-        border-radius: 15px;
-        border: 2px solid #2c3e50;
+        border-radius: 15px 0 15px 0;
         font-weight: bold;
         box-sizing: border-box;
         background-color: rgba(255,10,10, 0.7);
