@@ -28,6 +28,7 @@ export default {
   }
   .app {
     width: auto;
+    height: auto;
     text-align: center;
     color: #2c3e50;
     padding: 60px 10vw 0 10vw;

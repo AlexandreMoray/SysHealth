@@ -1,30 +1,34 @@
 <template>
-    <div class="chart">
+    <div class="detailedChart">
         <div class="header">
             <h3>{{name}}</h3>
-            <div class="more" @click="send()">+</div>
+            <div class="more" @click="send()">✖</div>
         </div>
-        <apexcharts width="500" :type="type" :options="parameters.chartOptions" :series="parameters.series"></apexcharts>
+        <apexcharts width="1000" :options="parameters.chartOptions" :series="parameters.series" type="line"></apexcharts>
     </div>
 </template>
 
 <script>
     import VueApexCharts from 'vue-apexcharts'
     export default {
-        props: ['parameters', 'type', 'name'],
+        name: "DetailedChart.vue",
+        props: ['parameters', 'name'],
         components: {
-            apexcharts: VueApexCharts,
+            apexcharts: VueApexCharts
         },
-        methods: {
+        data () {
+            return {}
+        },
+        methods : {
             send() {
-                this.$emit('extend')
+                this.$emit('unextend')
             }
         }
     }
 </script>
 
-<style>
-    .chart {
+<style scoped>
+    .detailedChart {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -35,6 +39,7 @@
         border: 2px solid #2c3e50;
         box-sizing: border-box;
         background-color: antiquewhite;
+        margin-bottom: 50px;
     }
     .header {
         height: 40px;
@@ -51,9 +56,5 @@
         float: right;
         padding-right: 10px;
         cursor: pointer;
-    }
-    h3 {
-        margin: 0;
-        padding-left: 20px;
     }
 </style>

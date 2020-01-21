@@ -175,4 +175,82 @@ export class Values {
         }
     }
 
+    getDetailedChartParameters(value) {
+        let name = value;
+        let selected_data;
+        let colors;
+
+        switch(value) {
+            case 'airQuality':
+                selected_data = this.airQuality;
+                colors = ['#cc0000'];
+                break;
+            case 'humidity':
+                selected_data = this.humidity;
+                colors = ['#ffcc00'];
+                break;
+            case 'pmTen':
+                selected_data = this.pmTen;
+                colors = ['#009933'];
+                break;
+            case 'pmTwoFive':
+                selected_data = this.pmTwoFive;
+                colors = ['#0000cc'];
+                break;
+            case 'temp':
+                selected_data = this.temp;
+                colors = ['#996633'];
+                break;
+            default:
+                throw(new Error("Requested Chart Parameters doesnt correspond to any value type !"));
+        }
+
+        return {
+            chartOptions: {
+                chart: {
+                    id: name.toUpperCase(),
+                    animations: {
+                        enabled: true,
+                        easing: 'linear',
+                        dynamicAnimation: {
+                            speed: 1000
+                        }
+                    },
+                    zoom: {
+                        enabled: true,
+                        type: 'x',
+                        autoScaleYaxis: false,
+                        zoomedArea: {
+                            fill: {
+                                color: '#90CAF9',
+                                opacity: 0.4
+                            },
+                            stroke: {
+                                color: '#0D47A1',
+                                opacity: 0.4,
+                                width: 1
+                            }
+                        }
+                    }
+                },
+                xaxis: {
+                    type : "timeline",
+                    axisBorder: {
+                        show: false
+                    },
+                    axisTicks: {
+                        show: false
+                    },
+                    labels: {
+                        show: false
+                    }
+                },
+                colors: colors
+            },
+            series: [{
+                name: name + '_series',
+                data: selected_data
+            }]
+        }
+    }
 }
