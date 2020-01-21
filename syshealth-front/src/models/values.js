@@ -1,7 +1,6 @@
 import axios from "axios"
 
 export class Values {
-    size = 0;
     airQuality = new Array();
     humidity = new Array();
     pmTen = new Array();
@@ -19,47 +18,41 @@ export class Values {
                 console.log('init air quality: ');
                 console.log(result);
                 result.data.forEach(x => {
-                    this.airQuality.push(x.value);
+                    this.airQuality.unshift(x.value);
                 })
-                this.size++;
             })
         axios({ method: "GET", "url": "https://io.adafruit.com/api/v2/StephaneThurneyssen/feeds/humidity/data" })
             .then(result => {
                 console.log('init humidity: ');
                 console.log(result);
                 result.data.forEach(x => {
-                    this.humidity.push(Math.round(x.value*100)/100);
+                    this.humidity.unshift(Math.round(x.value*100)/100);
                 })
-                this.size++;
             })
         axios({ method: "GET", "url": "https://io.adafruit.com/api/v2/StephaneThurneyssen/feeds/pmten/data" })
             .then(result => {
                 console.log('init pmTen: ');
                 console.log(result);
                 result.data.forEach(x => {
-                    this.pmTen.push(x.value);
+                    this.pmTen.unshift(x.value);
                 })
-                this.size++;
             })
         axios({ method: "GET", "url": "https://io.adafruit.com/api/v2/StephaneThurneyssen/feeds/pmtwofive/data" })
             .then(result => {
                 console.log('init pmTwoFive: ');
                 console.log(result);
                 result.data.forEach(x => {
-                    this.pmTwoFive.push(x.value);
+                    this.pmTwoFive.unshift(x.value);
                 })
-                this.size++;
             })
         axios({ method: "GET", "url": "https://io.adafruit.com/api/v2/StephaneThurneyssen/feeds/temp/data" })
             .then(result => {
                 console.log('init temp: ');
                 console.log(result);
                 result.data.forEach(x => {
-                    this.temp.push(Math.round(x.value*100)/100);
+                    this.temp.unshift(Math.round(x.value*100)/100);
                 })
-                this.size++;
             })
-
     }
 
     getRandom(min, max) {
@@ -159,14 +152,6 @@ export class Values {
                         dynamicAnimation: {
                             speed: 1000
                         }
-                    },
-                    zoom: {
-                        type: 'x',
-                        enabled: true,
-                        autoScaleYaxis: true
-                    },
-                    toolbar: {
-                        autoSelected: 'zoom'
                     }
                 },
                 xaxis: {

@@ -2,15 +2,15 @@
   <div class="dashboard-container">
     <Warning :values="parameters.getLastValues()"/>
     <ContextData/>
-    <chart name="Air quality" :parameters="parameters.getChartParameters('airQuality')" type="line"
+    <chart name="Air quality" :parameters="parameters.getChartParameters('airQuality')" type="area"
            v-if="extended==null"></chart>
-    <chart name="Humidity" :parameters="parameters.getChartParameters('humidity')" type="area"
+    <chart name="Humidity" :parameters="parameters.getChartParameters('humidity')" type="line"
            v-if="extended==null" ></chart>
-    <chart name="PmTen" :parameters="parameters.getChartParameters('pmTen')" type="line"
+    <chart name="PmTen" :parameters="parameters.getChartParameters('pmTen')" type="area"
            v-if="extended==null" ></chart>
-    <chart name="PmTwoFive" :parameters="parameters.getChartParameters('pmTwoFive')" type="line"
+    <chart name="PmTwoFive" :parameters="parameters.getChartParameters('pmTwoFive')" type="area"
            v-if="extended==null" ></chart>
-    <chart name="Temp" :parameters="parameters.getChartParameters('temp')" type="area"
+    <chart name="Temp" :parameters="parameters.getChartParameters('temp')" type="line"
            v-if="extended==null" ></chart>
   </div>
 </template>

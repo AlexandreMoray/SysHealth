@@ -1,6 +1,6 @@
 <template>
     <div class="navbar">
-        <h3>SysHealth Medical Dashboard</h3>
+        <h3>SysHealth Pollution Dashboard</h3>
     </div>
 </template>
 <script>

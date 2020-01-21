@@ -1,7 +1,7 @@
 <template>
     <div class="context-container">
         <div class="header">
-            <h2>Informations de contexte du Patient</h2>
+            <h2>Informations de contexte de la zone</h2>
         </div>
         <div id="datas">
             <div class="box">

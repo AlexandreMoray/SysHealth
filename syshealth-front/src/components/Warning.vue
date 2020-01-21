@@ -12,14 +12,16 @@
         props: ['values'],
         methods: {
             isWarning() {
-                if(this.values.airQuality < 60) {
-                    return "Air Quality is low !"
-                } else if(this.values.humidity > 90) {
-                    return "Humidity is high !"
+                if(this.values.airQuality > 95) {
+                    return "Air Quality is quite dangerous (" + this.values.airQuality + ") !"
+                } else if(this.values.humidity > 80) {
+                    return "Humidity is really high (" + this.values.humidity + ") !"
+                } else if(this.values.humidity < 20) {
+                    return "Humidity is really low (" + this.values.humidity + ") !"
                 } else if(this.values.temp > 30) {
-                    return "Temperature is high !"
+                    return "Temperature is high (" + this.values.temperature + ") !"
                 } else if(this.values.temp < 5) {
-                    return "Temperature is low !"
+                    return "Temperature is low (" + this.values.temperature + ") !"
                 } else {
                     return 'ok'
                 }
